@@ -1,0 +1,27 @@
+{% extends 'blog/bloglist_base.html' %}
+{% block bloglist %}
+{% if request_user %}
+<p style="font-size: 120%"><a href="{% url 'mybloglist' %}">Blog of {{ request_user }}</a></p>
+{% endif %}
+<table style="width:100%">
+	<caption style="font-size: 250%">Homepage Blog List</caption>
+	<tr>
+		<th>title</th>
+		<th>author</th>
+		<th>pv</th>
+		<th>date</th>
+	</tr>
+	{% if blog_list %}
+		{% for item in blog_list %}
+			<tr>
+				<th><a href="{% url 'detail' item.id %}">{{ item.title }}</a></th>
+				<th><a href="{% url 'jump_userbloglist' item.id item.author %}">{{ item.author }}</a></th>
+				<th> {{ item.pv }}</th>
+				<th> {{ item.pub_date }}</th>
+			</tr>
+		{% endfor %}
+	{% endif %} 
+</table>
+<p style="font-size: 150%"><a href="{% url 'add_blog' %}">Write Blog</a> </p>
+<p style="font-size: 130%" align="right"><a href="{% url 'logout' %}">Logout</a></p>
+{% endblock %}

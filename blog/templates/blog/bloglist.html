@@ -1,0 +1,27 @@
+{% extends 'blog/bloglist_base.html' %}
+{% block bloglist %}
+<p style="font-size: 130%" align="left"><a href="{% url 'homepage' %}">Return homepage</a></p>
+<p style="font-size: 150%" align="right"><a href="{% url 'logout' %}">Logout</a></p>
+<table style="width:100%">
+	{% if username %}
+	<caption style="font-size: 200%">{{username}} blog List</caption>
+	{% endif %}
+	<tr>
+		<th>title</th>
+		<th>author</th>
+		<th>pv</th>
+		<th>date</th>
+	</tr>
+	{% if blog_list %}
+		{% for item in blog_list %}
+			<tr>
+				<th><a href="{% url 'detail' item.id %}">{{ item.title }}</a></th>
+				<th> {{ item.author }}</th>
+				<th> {{ item.pv }}</th>
+				<th> {{ item.pub_date }}</th>
+			</tr>
+		{% endfor %}
+	{% endif %} 
+</table>
+<p style="font-size: 150%"><a href="{% url 'add_blog' %}">Write Blog</a> </p>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Error!</title>
+</head>
+<body>
+	<p style="text-align:left;font-size:120%"><a href="{% url 'homepage' %}">return homepage</a><span style="float:right;"><a href="{% url 'mybloglist' %}">return mybloglist</a></span></p>
+	{% block error %}
+	{% endblock %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% block base %}
+<body>
+<p style="font-size: 130%"><a href="{% url 'homepage' %}">return homepage</a></p>
+<p style="font-size: 200%" align="center">Sign Up User</p>
+<form method="post" action=".">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ signup_form.username.label_tag }}</td>
+    <td>{{ signup_form.username }}</td>
+</tr>
+<tr>
+    <td>{{ signup_form.password.label_tag }}</td>
+    <td>{{ signup_form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+</form>
+</body>
+{% endblock %}

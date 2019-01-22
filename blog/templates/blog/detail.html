@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+{% block base %}
+<script> 
+$(document).ready(function(){
+	$("#id_comment_form").submit(function(e) {
+		var frm = $('#id_comment_form');
+	        $.ajax({
+	            type: frm.attr('method'),
+	            url: frm.attr('action'),
+	            data: frm.serialize(),
+	            success: function (data) {
+         			$(".add_comment").last().append(data);
+            		$('#id_comment_form')[0].reset();
+	            },
+	            error: function (data) {
+	               window.location.assign("http://127.0.0.1:8000/blog/login/")
+	            },
+	        });
+	        e.preventDefault();
+	});
+});
+</script>
+
+</head>
+<body>
+	<p style="text-align:left;font-size:120%"><a href="{% url 'homepage' %}">return homepage</a><span style="float:right;"><a href="{% url 'mybloglist' %}">return mybloglist</a>
+	{% if blog_page %}
+		{% for item in blog_page %}
+			<h1 align="center">{{ item.title }}</h1>
+			<h2 align="left">Author: {{ item.author }}</h2>
+			<p>Content: {{ item.content }}</p>
+			<p align="right">Comment Time: {{ item.pub_date }}</p>
+		{% endfor %}
+	{% endif %}
+
+	<p>Comment Section</p>
+
+	<p class="add_comment"></p>
+	{% if comment_detail %}
+		{% for comment in comment_detail %}
+			{% include "blog/add_comment.html" %}
+		{% endfor %}
+	{% endif %} 
+
+	{% if pk %}
+		<p style="font-size: 120%" align="right"><a href="{% url 'edit_blog' pk %}">Edit Blog</a></p>
+		<p align="right" style="font-size:120%"><a href="{% url 'delete_blog' pk %}">Delete Blog</a></p>
+	{% endif %}
+
+	<form id="id_comment_form" action="." method="post"> 
+		{% csrf_token %}
+		{{ comment_form }}
+		<button type="submit">Submit Comment</button>
+	</form>
+{% endblock %}
