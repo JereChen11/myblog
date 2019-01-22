@@ -1,2 +1,2 @@
 # myblog
-use python Django create blog system.
+Use python Django create blog system.
